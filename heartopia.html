@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Heartopia 攻略站 · 最全中文玩家指南</title>
+    <meta name="description" content="Heartopia 中文攻略站 — 提供最新的兑换码、全鱼类图鉴、食谱大全、宠物指南及NPC攻略，助你打造梦想生活。">
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #fefdf8;
+            color: #2c2b28;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* 柔和底色 + 轻微质感 */
+        .bg-soft {
+            background: #fef7e8;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: rgba(255, 252, 242, 0.92);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #f0e5d2;
+            padding: 14px 0;
+        }
+
+        .nav-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.65rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #e28a4e, #b95c2e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .logo span {
+            color: #e28a4e;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            flex-wrap: wrap;
+            font-weight: 500;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #4a4a46;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #e28a4e;
+        }
+
+        /* 按钮样式 */
+        .btn-primary {
+            display: inline-block;
+            background-color: #e28a4e;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .btn-primary:hover {
+            background-color: #c06e34;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #e28a4e;
+            color: #e28a4e;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #e28a4e10;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            border: 1px solid #f3ebdd;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+        }
+
+        .badge {
+            background: #f3e9da;
+            color: #b45f2b;
+            border-radius: 100px;
+            padding: 0.25rem 0.9rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* 网格布局 */
+        .grid-2cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .grid-3cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* 鱼类表格简易样式 */
+        .fish-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+        .fish-table th {
+            background: #fef4e6;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #7c5a3c;
+        }
+        .fish-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0e5d6;
+            color: #3e3a34;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .section {
+            padding: 64px 0;
+            border-bottom: 1px solid #efe3d0;
+        }
+        .section:last-child {
+            border-bottom: 0;
+        }
+        footer {
+            background: #fff7ee;
+            padding: 32px 0;
+            text-align: center;
+            color: #9b8a74;
+            font-size: 0.85rem;
+            border-top: 1px solid #efebdd;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 0 20px; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.6rem; }
+            .nav-links { gap: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-flex">
+        <div class="logo">🌸 Heartopia<span>攻略站</span></div>
+        <div class="nav-links">
+            <a href="#">首页</a>
+            <a href="#codes">🎁 兑换码</a>
+            <a href="#fish">🐟 鱼类</a>
+            <a href="#recipes">🍳 食谱</a>
+            <a href="#pets">🐾 宠物</a>
+            <a href="#npcs">👥 NPC</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- 英雄区 -->
+    <div class="bg-soft" style="padding: 56px 0 32px 0;">
+        <div class="container">
+            <div class="flex-between" style="gap: 32px;">
+                <div style="max-width: 600px;">
+                    <div class="badge" style="margin-bottom: 18px;">🎮 慢节奏生活模拟 · 创意社区</div>
+                    <h1>欢迎来到<br>Heartopia 中文攻略站</h1>
+                    <p style="font-size: 1.2rem; margin: 20px 0 28px; color: #5d5346;">最完整的玩家数据库 · 兑换码实时更新 · 钓鱼/料理/宠物图鉴 · 新手不迷路</p>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="#codes" class="btn-primary">✨ 领取今日福利码</a>
+                        <a href="#fish" class="btn-outline">📖 探索全鱼类</a>
+                    </div>
+                </div>
+                <div style="background: #ffe6cd; width: 100%; max-width: 380px; height: 180px; border-radius: 48px; display: flex; align-items: center; justify-content: center; font-size: 4rem; box-shadow: 0 12px 22px -12px rgba(0,0,0,0.2);">
+                    🏡✨
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- 游戏特色/简介 -->
+        <div class="section" id="intro">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto 48px auto;">
+                <h2>🌿 沉浸式小岛生活</h2>
+                <p style="font-size: 1.1rem;">《Heartopia》是一款多人生活模拟游戏。建造梦想家园、探索7大爱好、结交温暖伙伴。钓鱼/烹饪/园艺/观鸟/捉虫/宠物/写作 —— 尽情享受悠闲时光。</p>
+            </div>
+            <div class="grid-3cols">
+                <div class="card"><div style="font-size: 2rem;">🎣</div><h3>94种可钓鱼类</h3><p>全地图钓点，不同天气/时段刷新，罕见鱼等你收集。</p></div>
+                <div class="card"><div style="font-size: 2rem;">🍲</div><h3>77道料理食谱</h3><p>从简餐到宴会，解锁全部美味，提升厨艺等级。</p></div>
+                <div class="card"><div style="font-size: 2rem;">🐈⬛</div><h3>宠物陪伴系统</h3><p>领养猫猫狗狗，互动装扮，成为最贴心的伙伴。</p></div>
+                <div class="card"><div style="font-size: 2rem;">🏡</div><h3>自由建造家园</h3><p>数千种家具组合，创造独一无二的温馨小窝。</p></div>
+                <div class="card"><div style="font-size: 2rem;">👥</div><h3>丰富NPC剧情</h3><p>与Massimo、Joan等角色提升好感，解锁专属奖励。</p></div>
+                <div class="card"><div style="font-size: 2rem;">🌸</div><h3>多人社交联机</h3><p>拜访好友岛屿，一起钓鱼、逛市集、合影留念。</p></div>
+            </div>
+        </div>
+
+        <!-- 兑换码专区 MVP -->
+        <div class="section" id="codes">
+            <div class="flex-between" style="margin-bottom: 28px;">
+                <h2>🎁 最新兑换码 · 限时福利</h2>
+                <span class="badge">每周更新</span>
+            </div>
+            <div class="card" style="background: #fffcf5;">
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;">
+                    <div><strong>✨有效兑换码 (May 2026)</strong><br>
+                        <span style="background:#f2e5d6; padding:4px 12px; border-radius: 30px; display: inline-block; margin: 8px 0;">HEARTOPIA2026</span> 
+                        <span style="background:#f2e5d6; padding:4px 12px; border-radius: 30px; margin: 8px 4px;">WELCOMEHOME</span>
+                        <span style="background:#f2e5d6; padding:4px 12px; border-radius: 30px;">SPRINGFEST2026</span>
+                        <span style="background:#f2e5d6; padding:4px 12px; border-radius: 30px;">lifewithline</span>
+                        <p style="margin-top: 12px; font-size: 0.9rem;">🎁 奖励包含：月光石、金币、限定装饰、高级鱼饵</p>
+                    </div>
+                    <div><small>⚠️ 兑换码有时效，请尽快使用</small></div>
+                </div>
+                <div style="margin-top: 20px; border-top: 1px dashed #f0e2cf; padding-top: 16px; font-size: 0.9rem;">
+                    📌 使用方法：游戏内【设置】→【礼包码兑换】输入领取。
+                </div>
+            </div>
+        </div>
+
+        <!-- 鱼类数据库 (MVP 核心) -->
+        <div class="section" id="fish">
+            <div class="flex-between">
+                <h2>🐟 全鱼类图鉴 · 稀有度+钓点</h2>
+                <a href="#" class="btn-outline" style="padding: 6px 16px;">📋 完整94种数据库 →</a>
+            </div>
+            <p style="margin-bottom: 1.5rem;">从普通鱼到传奇鱼，每种鱼的天气、时段、位置都在掌控之中。</p>
+            <table class="fish-table">
+                <thead><tr><th>名称</th><th>位置</th><th>天气/时段</th><th>出售价格 ★★★</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>霓虹孔雀鱼</td><td>鲸鱼海 · 港口</td><td>晴天 / 清晨~午后</td><td>180 💰</td></tr>
+                    <tr><td>薄暮章鱼</td><td>东礁岩岸</td><td>雨天 / 夜晚</td><td>450 💰</td></tr>
+                    <tr><td>琉璃海马</td><td>珊瑚浅湾</td><td>任意 / 全日</td><td>320 💰</td></tr>
+                    <tr><td>金鳞龙鱼</td><td>深山瀑布</td><td>雷阵雨 / 黄昏</td><td>1200 💰 (稀有) </td></tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 20px; background:#fdf2e4; border-radius: 24px; padding: 1rem 1.3rem;">
+                💡 钓鱼小贴士：提升渔夫等级解锁更高级鱼竿，不同鱼饵可提升珍稀鱼概率。
+            </div>
+        </div>
+
+        <!-- 食谱大全 -->
+        <div class="section" id="recipes">
+            <div class="flex-between">
+                <h2>🍽️ 烹饪食谱大全 · 逐步解锁</h2>
+                <span class="badge">77种已收录</span>
+            </div>
+            <div class="grid-2cols" style="margin-top: 24px;">
+                <div class="card">
+                    <h3>🍰 甜点烘焙</h3>
+                    <ul style="margin-left: 1.2rem; color: #4d4238;">
+                        <li>苹果派 · 苹果+面粉+黄油</li>
+                        <li>瑞士蛋糕卷 · 蛋+牛奶+糖</li>
+                        <li>混合果酱曲奇 · 任意浆果+面粉</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🍣 海鲜盛宴</h3>
+                    <ul style="margin-left: 1.2rem;">
+                        <li>海鲜比萨 · 鱿鱼+奶酪+面团</li>
+                        <li>烟熏鱼贝果 · 熏鱼+贝果+生菜</li>
+                        <li>海鲜烩饭 · 虾+墨鱼+大米+藏红花</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🥗 家常风味</h3>
+                    <ul><li>温泉蛋 · 鸡蛋+温泉水 (Onsen 山顶)</li>
+                    <li>田园沙拉 · 生菜+番茄+黄瓜</li>
+                    <li>蘑菇浓汤 · 蘑菇+奶油+香草</li></ul>
+                </div>
+                <div class="card">
+                    <h3>🍹 特调饮品</h3>
+                    <ul><li>月光特饮 · 月光水晶+蜂蜜+气泡水</li>
+                    <li>热带风情茶 · 芒果+柠檬+红茶</li></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 宠物系统 + NPC 指引 -->
+        <div class="section" id="pets">
+            <h2>🐶 宠物领养 · 陪伴你的每一天</h2>
+            <div class="grid-2cols">
+                <div class="card">
+                    <h3>🐱 猫咪指南</h3>
+                    <p>解锁「Cat Caring」爱好后寻找Joan的宠物店，每日刷新的猫咪有独特花色。互动提升亲密度，还能获得装扮礼包。</p>
+                </div>
+                <div class="card">
+                    <h3>🐕 狗狗伙伴</h3>
+                    <p>同样需要D.G.会员等级，完成基础五爱好后解锁狗屋，带狗狗散步+玩耍可以收获小礼物。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NPC 关键人物 -->
+        <div class="section" id="npcs">
+            <div class="flex-between">
+                <h2>👥 关键NPC · 任务与好感度</h2>
+                <a href="#" class="btn-outline" style="padding: 6px 16px;">查看全NPC列表 →</a>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 24px;">
+                <div style="flex:1; background: white; border-radius: 28px; padding: 1rem 1.5rem; border:1px solid #f2e5d2;"><strong>🍔 Massimo</strong> — 美食车老板，出售稀有食材，解锁新菜谱任务</div>
+                <div style="flex:1; background: white; border-radius: 28px; padding: 1rem 1.5rem; border:1px solid #f2e5d2;"><strong>🐱 Joan</strong> — 宠物店店长，领养猫狗、购买宠物用品</div>
+                <div style="flex:1; background: white; border-radius: 28px; padding: 1rem 1.5rem; border:1px solid #f2e5d2;"><strong>🐦 Bailey</strong> — 观鸟站管理员，观鸟爱好教程+鸟类图鉴奖励</div>
+                <div style="flex:1; background: white; border-radius: 28px; padding: 1rem 1.5rem; border:1px solid #f2e5d2;"><strong>🐞 Nanowa</strong> — 虫类学者，昆虫捕捉爱好及稀有虫类兑换</div>
+            </div>
+        </div>
+
+        <!-- 工具/下载区 (简约) -->
+        <div class="section" id="tools" style="text-align: center;">
+            <h2>🛠️ 实用工具 & 下载</h2>
+            <p>规划你的家园、收藏进度追踪器即将上线，目前推荐通过官方渠道下载游戏：</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 24px 0;">
+                <a href="#" class="btn-outline">📱 App Store</a>
+                <a href="#" class="btn-outline">🤖 Google Play</a>
+                <a href="#" class="btn-outline">💻 Steam</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>🌸 Heartopia 中文攻略站 · 玩家共建指南 | 数据基于游戏版本 2026.05 持续更新<br>🎮 本攻略站为非官方性质，仅为玩家提供便利，所有素材版权归官方所有。</p>
+    </div>
+</footer>
+</body>
+</html>
